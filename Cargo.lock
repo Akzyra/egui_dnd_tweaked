@@ -600,6 +600,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "egui_dnd_example2"
+version = "0.1.0"
+dependencies = [
+ "color-hex",
+ "eframe",
+ "egui",
+ "egui_dnd",
+ "egui_extras",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+]
+
+[[package]]
 name = "egui_extras"
 version = "0.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

@@ -20,4 +20,4 @@ egui = { version = "0.20.1", features = ["color-hex"] }
 
 
 [workspace]
-members = ["fancy-example"]
+members = ["fancy-example", "offset-example"]
