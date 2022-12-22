@@ -44,7 +44,20 @@ pub struct Handle<'a> {
 
 impl<'a> Handle<'a> {
     pub fn ui<T: DragDropItem>(self, ui: &mut Ui, item: &T, contents: impl FnOnce(&mut Ui)) {
+        self.ui_offset(ui, item, Some(Vec2::ZERO), contents);
+    }
+
+    pub fn ui_offset<T: DragDropItem>(
+        self,
+        ui: &mut Ui,
+        item: &T,
+        offset: Option<Vec2>,
+        contents: impl FnOnce(&mut Ui),
+    ) {
+        let parent_pos = ui.min_rect().min;
         let u = ui.scope(contents);
+        let handle_pos = u.response.rect.min;
+        let auto_offset = handle_pos - parent_pos;
 
         let response = ui.interact(u.response.rect, item.id(), Sense::drag());
 
@@ -55,6 +68,7 @@ impl<'a> Handle<'a> {
         if response.drag_started() {
             self.state.drag_delta = Some(
                 u.response.rect.min.to_vec2()
+                    - offset.unwrap_or(auto_offset)
                     - response
                         .interact_pointer_pos()
                         .unwrap_or(Pos2::default())
